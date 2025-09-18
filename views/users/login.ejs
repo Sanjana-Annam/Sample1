@@ -1,0 +1,30 @@
+<% layout('layout/boilerplate') -%>
+
+<body>
+  <div class="form-container">
+    <form method="POST" action="/login" class="needs-validation" novalidate>
+      <h2 class="form-heading">Login</h2>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-input" required>
+        <div class="invalid-feedback">Username is required.</div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-input" required minlength="6">
+        <div class="invalid-feedback">Password must be at least 6 characters.</div>
+      </div>
+
+      <!-- Confirm Password -->
+      
+
+      <!-- Submit -->
+      <button type="submit" class="form-button">Login</button>
+    </form>
+  </div>
+
+</body>

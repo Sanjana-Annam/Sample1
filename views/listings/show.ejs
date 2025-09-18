@@ -1,0 +1,168 @@
+<% layout('layout/boilerplate') -%>
+<body>
+  <div class="details-container">
+    <h2 class="details-heading"><%= list.title %></h2>
+
+    <div class="details-card">
+      <img src="<%= list.image.url %>" alt="<%= list.title %>" class="details-image" />
+
+      <div class="details-info">
+        <p class="details-description">Owned by: <i><%= list.owner.username %></i></p>
+        <p class="details-description"><%= list.description %></p>
+        <p class="card-price">
+          <% if (typeof list.price === 'number') { %>
+            &#8377;<%= list.price.toLocaleString("en-IN") %> for 2 nights
+          <% } else { %>
+            Price not available
+          <% } %>
+        </p>
+        <p class="details-location"><%= list.location %>, <%= list.country %></p>
+
+       
+          <% if(currUser && list.owner.equals(currUser._id)) {%>
+            <div class="details-actions">
+            <a href="/listing/<%= list._id %>/edit" class="edit-btn">Edit your listing</a>
+            <form method="POST" action="/listing/<%= list._id %>?_method=DELETE" class="delete-form">
+              <button class="delete-btn" type="submit">Delete</button>
+            </form>
+          </div>
+          <% } %>
+       
+      </div>
+    </div>
+
+    <!-- Review Section -->
+    <% if(currUser){ %>
+      <div class="review-section">
+      <h3 class="review-title">Leave a Review</h3>
+      <form method="POST" action="/listing/<%= list._id %>/review" class="review-form needs-validation" novalidate >
+        
+        <!-- Star Rating -->
+        <!-- Star Rating -->
+        <div class="form-group">
+          <label>Rating</label>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="review[rating]" value="5"><label for="star5">★</label>
+            <input type="radio" id="star4" name="review[rating]" value="4"><label for="star4">★</label>
+            <input type="radio" id="star3" name="review[rating]" value="3"><label for="star3">★</label>
+            <input type="radio" id="star2" name="review[rating]" value="2"><label for="star2">★</label>
+            <input type="radio" id="star1" name="review[rating]" value="1"><label for="star1">★</label>
+          </div>
+        </div>
+
+        <!-- Comment -->
+        <div class="form-group">
+          <label for="comment">Your Comment</label>
+          <textarea id="comment" name="review[comment]" rows="4" class="review-textarea" placeholder="Share your experience..." required></textarea>
+          <div class="invalid-feedback">
+            please submit valid feedback
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">Submit Review</button>
+        </div>
+      </form>
+    </div>
+    <% } %>
+    <!-- 👇 Reviews Display Section -->
+    <div class="reviews-display">
+      <h3 class="review-title">Reviews</h3>
+      <% if (list.review && list.review.length > 0) { %>
+        <% list.review.forEach(r => { %>
+          <div class="review-card">
+            <p><%= r.author ? r.author.username : "Anonymous" %></p>
+
+            <p class="review-rating">⭐ <%= r.rating %> / 5</p>
+            <p class="review-comment"><%= r.comment %></p>
+            
+              <form method="POST" action="/listing/<%= list._id %>/review/<%= r._id %>?_method=DELETE" class="rdelete-form">
+                <button type="submit" class="rdelete-btn">Delete</button>
+              </form>
+         
+
+          </div>
+        <% }) %>
+
+      <% } else { %>
+        <p>No reviews yet. Be the first to review!</p>
+      <% } %>
+      
+    </div>
+      <div >
+        <h3 class="map-heading">Location</h3>
+        <div id="map"></div>
+      </div>
+  </div>
+  <!-- Map container -->
+<!-- Map container -->
+
+<!-- place this before your map scripts (still inside the EJS template) -->
+<!-- put this near your map markup (still in the EJS template) -->
+<div id="listing-meta"
+     data-lat="<%= (typeof list.latitude === 'number' ? list.latitude : (list.latitude || '')) %>"
+     data-lng="<%= (typeof list.longitude === 'number' ? list.longitude : (list.longitude || '')) %>"
+     data-title="<%= list.title %>"
+     data-location="<%= list.location %>"
+     style="display:none"></div>
+
+<div id="map" style="height:400px"></div>
+
+<!-- client-side JS: NO EJS inside this script -->
+<script>
+  // read from the DOM element, parse and fallback safely
+  (function() {
+    const el = document.getElementById('listing-meta');
+
+    // read values (strings)
+    const latAttr = el.dataset.lat;
+    const lngAttr = el.dataset.lng;
+    const title = el.dataset.title || '';
+    const location = el.dataset.location || '';
+
+    // convert to numbers if possible, otherwise use fallback coords
+    const fallback = { lat: 18.5246, lng: 73.8786 }; // your fallback
+    const lat = latAttr ? Number(latAttr) : NaN;
+    const lng = lngAttr ? Number(lngAttr) : NaN;
+    const coords = [
+      Number.isFinite(lat) ? lat : fallback.lat,
+      Number.isFinite(lng) ? lng : fallback.lng
+    ];
+
+    // initialize Leaflet map using only plain client-side JS
+    const map = L.map('map', { zoomControl: false }).setView(coords, 12);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(map);
+
+    const customIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/2776/2776067.png',
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38]
+    });
+
+    L.marker(coords, { icon: customIcon }).addTo(map)
+      .bindPopup(`<b>${escapeHtml(title)}</b><br>${escapeHtml(location)}`)
+      .openPopup();
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    // small helper to avoid XSS when inserting into popup
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  })();
+</script>
+
+
+</body>

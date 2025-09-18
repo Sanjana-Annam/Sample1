@@ -1,0 +1,13 @@
+<% layout('layout/boilerplate') -%>
+<body>
+  <div class="error-container">
+    <h1 class="error-title">Oops! Something went wrong.</h1>
+    <p class="error-message"><%= error.message || "An unexpected error occurred." %></p>
+    
+    <% if (error.status) { %>
+      <p class="error-code">Error Code: <%= error.status %></p>
+    <% } %>
+
+    <a href="/listing" class="home-button">Go Back Home</a>
+  </div>
+</body>

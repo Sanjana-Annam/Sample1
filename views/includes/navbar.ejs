@@ -1,0 +1,85 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md bg-white border-bottom shadow-sm sticky-top">
+  <div class="container-fluid">
+
+    <!-- Brand Icon -->
+    <a class="navbar-brand text-danger fs-4" href="/listing">
+      <i class="fa-solid fa-compass"></i>
+    </a>
+    <a class="navbar-brand text-danger fs-2.5" href="/listing">
+      Explore
+    </a>
+
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Center Search Bar + Category pill -->
+      <form action="/listing" method="GET" class="d-flex mx-auto align-items-center search-bar">
+        <!-- 🔍 Search input -->
+        <input 
+          class="form-control border-0 rounded-pill shadow-sm px-4"
+          type="search"
+          name="q"
+          placeholder="Search by title, location, category..."
+          value="<%= typeof q !== 'undefined' ? q : '' %>"
+          aria-label="Search" required
+        >
+        <button class="btn  rounded-pill px-4 ms-2 shadow-sm"style="background-color: #ff385c; type="submit">
+          <i class="fa-solid fa-search"></i>
+        </button>
+
+        <!-- Categories Pill Dropdown -->
+        <div class="dropdown ms-2">
+          <button class="btn btn-light rounded-pill shadow-sm dropdown-toggle" 
+                  type="button" id="categoryDropdown" data-bs-toggle="dropdown" 
+                  aria-expanded="false">
+            Categories
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li><a class="dropdown-item" href="/listing?category=Treehouses"><i class="fa-solid fa-tree"></i> Treehouses</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Houseboats"><i class="fa-solid fa-water"></i> Houseboats</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Domes"><i class="fa-regular fa-circle"></i> Domes</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Yurts"><i class="fa-solid fa-campground"></i> Yurts</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Castles"><i class="fa-solid fa-chess-rook"></i> Castles</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Windmills"><i class="fa-solid fa-wind"></i> Windmills</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Earth houses"><i class="fa-solid fa-mountain"></i> Earth houses</a></li>
+            <li><a class="dropdown-item" href="/listing?category=A-frames"><i class="fa-solid fa-house-chimney"></i> A-frames</a></li>
+            <li><a class="dropdown-item" href="/listing?category=Containers"><i class="fa-solid fa-box"></i> Containers</a></li>
+          </ul>
+        </div>
+      </form>
+
+      <!-- Right Side -->
+      <ul class="navbar-nav ms-auto">
+        <!-- Become a Host -->
+        <li class="nav-item">
+          <a class="nav-link" href="/listing/new">Become a Host</a>
+        </li>
+
+        <!-- User Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" id="userDropdown" 
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user-circle fa-lg"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <% if (!currUser) { %>
+              <li><a class="dropdown-item" href="/login">Login</a></li>
+              <li><a class="dropdown-item" href="/signup">Signup</a></li>
+            <% } else { %>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            <% } %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

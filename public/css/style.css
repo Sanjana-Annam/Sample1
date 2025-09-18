@@ -1,0 +1,601 @@
+/* navbar */
+body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+.container{
+  flex: 1;
+}
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #ff385c;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* footer */
+.footer-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.info-social i {
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+}
+
+.footer-links,
+.info-social,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-info {
+    text-align: center;
+    display: flex;
+    background-color: #bebebe;
+    height: 8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+/* Container grid styling */
+/* Card Grid Container */
+/* Card Grid Container */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 320px)); /* limit card width */
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  justify-content: center; /* center cards when fewer items */
+}
+
+/* Individual Card */
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  max-width: 320px;   /* keeps card at a reasonable size */
+  margin: 0 auto;     /* ensures centering if single item */
+}
+
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Image */
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Card Content */
+.card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.card-price {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.list{
+  text-decoration: none;
+}
+/* Container styling */
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+ 
+}
+
+/* Heading */
+.form-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Input group */
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+/* Text inputs */
+.form-input,
+.form-textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #ff6200;
+}
+
+/* Button */
+.form-button {
+  width: 100%;
+  background-color: #ff385c;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-button:hover {
+  background-color: #FF6B6B;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  .form-heading {
+    font-size: 1.5rem;
+  }
+}
+.edit-container {
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 35px;
+  background-color: #f8f9fa;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.edit-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.edit-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-group label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.edit-input,
+.edit-textarea {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.edit-input:focus,
+.edit-textarea:focus {
+  outline: none;
+  border-color: #ff1e00;
+}
+
+.edit-button {
+  width: 100%;
+  background-color: #ff385c;
+  color: #fff;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.edit-button:hover {
+  background-color: #e16666;
+}
+
+@media (max-width: 500px) {
+  .edit-container {
+    padding: 25px;
+  }
+
+  .edit-heading {
+    font-size: 1.6rem;
+  }
+}
+.details-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.details-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #ff385c;
+  text-align: center;
+}
+
+.details-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.details-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.details-description {
+  font-size: 1rem;
+  color: #444;
+}
+
+.details-price {
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: bold;
+}
+
+.details-location {
+  font-size: 1rem;
+  color: #777;
+}
+
+.details-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #ff385c;
+  color: white;
+  text-decoration: none;
+}
+
+.edit-btn:hover {
+  background-color: #a30000;
+}
+
+.delete-btn {
+  background-color:#ff385c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #a30000;
+}
+
+@media (min-width: 768px) {
+  .details-card {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .details-image {
+    width: 50%;
+  }
+
+  .details-info {
+    width: 50%;
+  }
+}
+.error-container {
+  text-align: center;
+  background-color: #fff0f0;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(200, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+}
+
+.error-title {
+  font-size: 2rem;
+  color: #c0392b;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.error-code {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.home-button {
+  text-decoration: none;
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #c0392b;
+}
+
+/* Review Section Container */
+/* Review Section */
+.review-section {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: #ffffff;
+  
+  border-radius: 16px;
+  
+}
+
+.review-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse; /* So stars highlight leftwards */
+  justify-content: flex-start;
+  gap: 0.3rem;
+}
+
+.star-rating input {
+  display: none; /* hide radio buttons */
+}
+
+.star-rating label {
+  font-size: 2rem;
+  color: #d1d5db; /* gray by default */
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+/* Hover & selected states */
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: #fbbf24; /* amber/golden */
+}
+
+/* Comment Box */
+.review-textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.review-textarea:focus {
+  border-color: #f97316;
+  outline: none;
+}
+
+/* Submit Button */
+.form-actions {
+  text-align: right;
+}
+
+.submit-btn {
+  background-color: #ff385c;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #a30000;
+}
+.reviews-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  justify-items: start; /* Align items to the left */
+  margin-top: 15px;
+}
+
+.review-card {
+  width: 100%;
+  max-width: 400px; /* keeps cards from stretching too wide */
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.rdelete-form {
+  margin-top: 10px;
+  text-align: right; /* button aligned to right inside card */
+}
+
+.rdelete-btn {
+  background-color: #fff;        /* white background */
+  color: #ff385c;              /* red text */
+  border: 2px solid #ff385c;   /* red border */
+  padding: 8px 18px;             /* slightly bigger for elegance */
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;            /* smoother corners */
+  cursor: pointer;
+  transition: all 0.3s ease;     /* smooth transition */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+.rdelete-btn:hover {
+  background-color: #ff385c;    /* red background on hover */
+  color: #fff;                   /* white text on hover */
+  transform: translateY(-2px);    /* slight lift effect */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* stronger shadow on hover */
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 15px;
+  
+}
+
+/* Optional: heading style */
+.map-heading {
+  margin-top: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+.category-bar {
+  margin-top: 20px;
+}
+
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1.5px solid #ff385c;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ff385c;
+  background: white;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.category-pill i {
+  color: #ff385c;
+  font-size: 16px;
+}
+
+.category-pill:hover {
+  background: #ff385c;
+  color: white;
+}
+
+.category-pill:hover i {
+  color: white;
+}
+
+.category-pill.active {
+  background: #ff385c;
+  color: white;
+}
+
+.category-pill.active i {
+  color: white;
+}

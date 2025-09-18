@@ -1,0 +1,67 @@
+<% layout('layout/boilerplate') -%>
+
+<body>
+  <div class="form-container">
+    <form method="POST" action="/listing" class="needs-validation" novalidate enctype="multipart/form-data">
+      <h2 class="form-heading">Create a New Listing</h2>
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="listing[title]" class="form-input" required>
+        <div class="invalid-feedback">Title is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="listing[description]" rows="4" class="form-textarea" required></textarea>
+        <div class="invalid-feedback">Description is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price (INR)</label>
+        <input type="number" id="price" name="listing[price]" class="form-input" required>
+        <div class="invalid-feedback">Price is required and must be a number.</div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-select" id="category" name="listing[category]" required>
+          <option value="">Select a category</option>
+          <option value="Treehouses">Treehouses</option>
+          <option value="Houseboats">Houseboats</option>
+          <option value="Domes">Domes</option>
+          <option value="Yurts">Yurts</option>
+          <option value="Castles">Castles</option>
+          <option value="Windmills">Windmills</option>
+          <option value="Earth houses">Earth houses</option>
+          <option value="A-frames">A-frames</option>
+          <option value="Containers">Containers</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="listing[location]" class="form-input" required>
+        <div class="invalid-feedback">Location is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input type="text" id="country" name="listing[country]" class="form-input" required>
+        <div class="invalid-feedback">Country is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="image">upload image</label>
+        <input type="file" id="image" name="listing[image]" class="form-input" required> 
+        <div class="invalid-feedback">Please enter a valid image URL.</div>
+      </div>
+
+      <input type="hidden" name="listing[image][filename]" value="listingimage">
+
+      <button type="submit" class="form-button">Add Listing</button>
+    </form>
+  </div>
+
+    
+  </body>

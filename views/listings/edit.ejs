@@ -1,0 +1,68 @@
+<% layout('layout/boilerplate') -%>
+
+<body>
+  <div class="edit-container">
+    <form method="POST" action="/listing/<%= list._id %>?_method=PUT" 
+      enctype="multipart/form-data" 
+      class="needs-validation" novalidate>
+  <h2 class="edit-heading">Edit Listing</h2>
+
+  <!-- Show existing image -->
+  
+
+  <div class="edit-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="listing[title]" value="<%= list.title %>" class="edit-input" required>
+    <div class="invalid-feedback">Title is required.</div>
+  </div>
+
+  <div class="edit-group">
+    <label for="description">Description</label>
+    <textarea id="description" name="listing[description]" rows="4" class="edit-textarea" required><%= list.description %></textarea>
+    <div class="invalid-feedback">Description is required.</div>
+  </div>
+
+  <div class="edit-group">
+    <label for="price">Price (INR)</label>
+    <input type="number" id="price" name="listing[price]" value="<%= list.price %>" class="edit-input" required>
+    <div class="invalid-feedback">Price is required and must be a number.</div>
+  </div>
+  <div class="edit-group">
+    <label for="category">Category</label>
+    <select id="category" name="listing[category]" class="edit-input" required>
+      <option value="">Select a category</option>
+      <% ["Treehouses","Houseboats","Domes","Yurts","Castles","Windmills","Earth houses","A-frames","Containers"].forEach(cat => { %>
+        <option value="<%= cat %>" <%= list.category === cat ? "selected" : "" %>><%= cat %></option>
+      <% }) %>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="image">Current image</label>
+    <img src="<%= originalimg %>" alt="<%= list.title %>" style="width:200px; height:auto;">
+
+  </div>
+
+  <div class="form-group">
+    <label for="image">Upload New Image</label>
+    <input type="file" id="image" name="listing[image]" class="form-input">
+  </div>
+
+  <div class="edit-group">
+    <label for="location">Location</label>
+    <input type="text" id="location" name="listing[location]" value="<%= list.location %>" class="edit-input" required>
+    <div class="invalid-feedback">Location is required.</div>
+  </div>
+
+  <div class="edit-group">
+    <label for="country">Country</label>
+    <input type="text" id="country" name="listing[country]" value="<%= list.country %>" class="edit-input" required>
+    <div class="invalid-feedback">Country is required.</div>
+  </div>
+
+  <button type="submit" class="edit-button">Update Listing</button>
+</form>
+
+  </div>
+</body>

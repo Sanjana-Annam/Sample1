@@ -1,0 +1,50 @@
+<% layout('layout/boilerplate') -%>
+  
+
+<!-- 🔹 Category Pills -->
+<div class="category-bar mb-4 d-flex flex-wrap gap-3 justify-content-center">
+  <% const categories = [
+    {name:"Treehouses", icon:"fa-tree"},
+    {name:"Houseboats", icon:"fa-ship"},
+    {name:"Domes", icon:"fa-circle"},
+    {name:"Yurts", icon:"fa-campground"},
+    {name:"Castles", icon:"fa-chess-rook"},
+    {name:"Windmills", icon:"fa-fan"},
+    {name:"Earth houses", icon:"fa-globe"},
+    {name:"A-frames", icon:"fa-mountain"},
+    {name:"Containers", icon:"fa-box"}
+  ]; %>
+
+  <% categories.forEach(cat => { %>
+    <a href="/listing?category=<%= cat.name %>"
+       class="category-pill <%= category === cat.name ? 'active' : '' %>">
+      <i class="fa <%= cat.icon %>"></i> <%= cat.name %>
+    </a>
+  <% }) %>
+</div>
+
+<!-- 🔹 Listings Grid -->
+<div class="card-grid">
+  <% if (allListings.length === 0) { %>
+    <p class="text-muted text-center">No listings found for this category.</p>
+  <% } %>
+
+  <% for (let list of allListings) { %>
+    <a href="/listing/<%= list._id %>" class="list">
+      <div class="card">
+        <img src="<%= list.image.url %>" alt="<%= list.title %>" class="card-img" />
+        <div class="card-content">
+          <p class="card-title"><%= list.title %></p>
+          <p class="card-category text-muted"><%= list.category %></p>
+          <p class="card-price">
+            <% if (typeof list.price === 'number') { %>
+              &#8377;<%= list.price.toLocaleString("en-IN") %> for 2 nights
+            <% } else { %>
+              Price not available
+            <% } %>
+          </p>
+        </div>
+      </div>
+    </a>
+  <% } %>
+</div>
