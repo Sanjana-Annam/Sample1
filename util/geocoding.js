@@ -1,10 +1,12 @@
 // util/geocoding.js
-const fetch = require('node-fetch'); // for Node <18. For Node 18+, you can remove this.
+const fetch = require('node-fetch'); // for Node <18. For Node 18+, remove this
 
 async function geocodeAddress(address) {
   try {
+    if (!address || address.trim() === '') return null;
+
     const params = new URLSearchParams({
-      q: address,
+      q: address.trim(),
       format: 'json',
       limit: '1'
     });
@@ -14,7 +16,7 @@ async function geocodeAddress(address) {
 
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'YourAppName/1.0 (your@email.example)',
+        'User-Agent': 'YourAppName/1.0 (your@email.example)', // must include valid contact
         'Accept-Language': 'en'
       }
     });
@@ -25,8 +27,6 @@ async function geocodeAddress(address) {
     }
 
     const data = await res.json();
-    console.log('[Geocode] Response data:', data);
-
     if (!data || data.length === 0) {
       console.warn('[Geocode] No results for address:', address);
       return null;

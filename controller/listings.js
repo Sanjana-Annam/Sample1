@@ -31,6 +31,7 @@ module.exports.AllListings = async (req, res, next) => {
 };
 
 // Create new listing
+// Create new listing
 module.exports.newPost = async (req, res, next) => {
   try {
     // Validate input
@@ -45,17 +46,18 @@ module.exports.newPost = async (req, res, next) => {
       newListing.image = { url: req.file.path, filename: req.file.filename };
     }
 
-    // Ensure location & country exist
+    // Validate location & country
     if (!newListing.location || !newListing.country) {
-      throw new ExpressError(400, "Location and country are required for geocoding");
+      throw new ExpressError(400, "Location and country are required");
     }
 
-    // Geocode the address
-    const address = `${newListing.location} ${newListing.country}`.trim();
-    const coords = await geocodeAddress(address);
+    const address = `${newListing.location}, ${newListing.country}`.trim();
+    let coords = await geocodeAddress(address);
 
+    // Fallback if geocoding fails
     if (!coords) {
-      throw new ExpressError(400, "Unable to fetch coordinates for this address");
+      console.warn("[Geocode] No coordinates found, using default center of India");
+      coords = { lat: 20.5937, lon: 78.9629 }; // center of India
     }
 
     newListing.latitude = coords.lat;
@@ -114,11 +116,9 @@ module.exports.editListing = async (req, res, next) => {
 };
 
 // Update existing listing
+// Update existing listing
 module.exports.updateListing = async (req, res, next) => {
   try {
-    console.log("🟡 Update request body:", req.body);
-    console.log("🟡 Update request file:", req.file);
-
     const { id } = req.params;
     const listingDoc = await Listing.findById(id);
 
@@ -128,7 +128,7 @@ module.exports.updateListing = async (req, res, next) => {
     }
 
     // Update only provided fields
-    const fields = ["title", "description", "price", "location", "country", "category"]; // ✅ added category
+    const fields = ["title", "description", "price", "location", "country", "category"];
     let locationOrCountryChanged = false;
 
     fields.forEach(field => {
@@ -145,15 +145,17 @@ module.exports.updateListing = async (req, res, next) => {
 
     // Re-geocode if location or country changed
     if (locationOrCountryChanged) {
-      const address = `${listingDoc.location} ${listingDoc.country}`.trim();
-      const coords = await geocodeAddress(address);
-      if (coords) {
-        listingDoc.latitude = coords.lat;
-        listingDoc.longitude = coords.lon;
-        console.log("🟢 Updated coords:", coords);
-      } else {
-        console.log("⚠️ No coordinates found for this address");
+      const address = `${listingDoc.location}, ${listingDoc.country}`.trim();
+      let coords = await geocodeAddress(address);
+
+      if (!coords) {
+        console.warn("[Geocode] No coordinates found, using default center of India");
+        coords = { lat: 20.5937, lon: 78.9629 };
       }
+
+      listingDoc.latitude = coords.lat;
+      listingDoc.longitude = coords.lon;
+      console.log("🟢 Updated coords:", coords);
     }
 
     await listingDoc.save();
