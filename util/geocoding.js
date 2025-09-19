@@ -16,8 +16,8 @@ async function geocodeAddress(address) {
 
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'YourAppName/1.0 (your@email.example)', // must include valid contact
-        'Accept-Language': 'en'
+        "User-Agent": "Sample1App/1.0 (https://github.com/Sanjana-Annam/Sample1)", 
+        "Accept-Language": "en"
       }
     });
 
